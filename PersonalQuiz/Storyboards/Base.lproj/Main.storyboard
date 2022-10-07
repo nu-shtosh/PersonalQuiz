@@ -306,7 +306,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы – осьминог!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-Yi-Tt2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы – осьминог!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-Yi-Tt2">
                                         <rect key="frame" x="83" y="68" width="122.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -330,6 +330,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="resultDescriptionLabel" destination="Mtg-Yi-Tt2" id="TVg-6Z-buh"/>
+                        <outlet property="resultLabel" destination="RZb-ww-1bI" id="Q5Q-9Z-BRz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZH6-hE-q9r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -338,7 +342,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SLl-ww-K4s">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X9L-Dr-r5x" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="X9L-Dr-r5x" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ccL-gu-bgX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="92.5"/>

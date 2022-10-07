@@ -2,12 +2,14 @@
 //  QuestionsViewController.swift
 //  PersonalQuiz
 //
-//  Created by Alexey Efimov on 03.10.2022.
+//  Created by Ilia D on 03.10.2022.
 //
 
 import UIKit
 
 class QuestionsViewController: UIViewController {
+
+    // MARK: - IBOutlets
     @IBOutlet var questionProgressView: UIProgressView!
     @IBOutlet var questionLabel: UILabel!
     
@@ -27,24 +29,32 @@ class QuestionsViewController: UIViewController {
             rangedSlider.value = answerCount / 2
         }
     }
-    
+
+    // MARK: - Privet Properties
     private let questions = Question.getQuestions()
     private var answersChosen: [Answer] = []
     private var questionIndex = 0
     private var currentAnswers: [Answer] {
         questions[questionIndex].answers
     }
-    
+
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         updateUI()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            guard let resultVC = segue.destination as? ResultViewController else { return }
+            resultVC.answers = answersChosen
+    }
+
+    // MARK: - IBActions
     @IBAction func singleAnswerButtonPressed(_ sender: UIButton) {
         guard let buttonIndex = singleButtons.firstIndex(of: sender) else { return }
         let currentAnswer = currentAnswers[buttonIndex]
         answersChosen.append(currentAnswer)
-        
         nextQuestion()
     }
     
@@ -62,7 +72,8 @@ class QuestionsViewController: UIViewController {
         answersChosen.append(currentAnswers[index])
         nextQuestion()
     }
-    
+
+    // MARK: - Deinitialization
     deinit {
         print("\(type(of: self)) has been deallocated")
     }
@@ -70,30 +81,21 @@ class QuestionsViewController: UIViewController {
 
 // MARK: - Private Methods
 extension QuestionsViewController {
+
     private func updateUI() {
-        // Hide everything
         for stackView in [singleStackView, multipleStackView, rangedStackView] {
             stackView?.isHidden = true
         }
         
-        // Get current question
         let currentQuestion = questions[questionIndex]
-        
-        // Set current question for question label
         questionLabel.text = currentQuestion.title
-        
-        // Calculate progress
         let totalProgress = Float(questionIndex) / Float(questions.count)
-        
-        // Set progress for questionProgressView
         questionProgressView.setProgress(totalProgress, animated: true)
-        
-        // Set navigation title
+
         title = "Вопрос № \(questionIndex + 1) из \(questions.count)"
-        
         showCurrentAnswers(for: currentQuestion.responseType)
     }
-    
+
     private func showCurrentAnswers(for type: ResponseType) {
         switch type {
         case .single: showSingleStackView(with: currentAnswers)
